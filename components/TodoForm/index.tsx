@@ -7,17 +7,12 @@ export const TodoForm = () => {
   const [todo, setTodo] = useState<string>('');
   const [curTodo, setCurTodo] = useState<todoType[]>([]);
 
-  // const loadCurTodoData = async () => {
-  //   const result = await fetch('api/test');
-  //   const data = await result.json();
-  //   setCurTodo(data.message);
-  //   console.log(data);
-  // };
-
-  const loadCurTodoData = () => {
-    fetch('/api/test')
+  const loadCurTodoData = async () => {
+    await fetch('/api/test')
       .then((res) => res.json())
-      .then((data) => setCurTodo(data.message));
+      .then((data) => {
+        setCurTodo(data.message);
+      });
   };
 
   const onChangeTodo = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -33,8 +28,13 @@ export const TodoForm = () => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    });
-    await loadCurTodoData();
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+        loadCurTodoData();
+      });
     setTodo('');
   };
 
@@ -59,6 +59,7 @@ export const TodoForm = () => {
         <>
           {curTodo.map((t) => (
             <div
+              key={t.id}
               style={{
                 marginLeft: 'auto',
                 marginRight: 'auto',

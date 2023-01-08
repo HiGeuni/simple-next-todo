@@ -1,3 +1,5 @@
+// Unused File
+
 import { todoType } from '../types/TodoTypes';
 import { loadJsonFile } from 'load-json-file';
 import { writeJsonFile } from 'write-json-file';
@@ -17,13 +19,13 @@ const create = async (val: string) => {
     isComplete: false,
   };
   curData.today.push(newData);
-  console.log(newData);
-  writeJsonFile('data.json', curData);
+  writeJsonFile('data.json', curData).then(() => {
+    console.log('WriteJsonFile Complete');
+  });
 };
 
 const update = async (id: string, val: string) => {
   let curData: DataType = await loadJsonFile('data.json');
-
   let data: todoType | undefined = curData.today.find(
     (x) => x.id.toString() === id.toString(),
   );
@@ -34,8 +36,8 @@ const update = async (id: string, val: string) => {
   writeJsonFile('data.json', curData);
 };
 
-const read = async () => {
-  let curData: DataType = await loadJsonFile('data.json');
+const read = () => {
+  const curData = await loadJSonFile;
   return curData.today;
 };
 
