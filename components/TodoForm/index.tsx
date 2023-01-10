@@ -20,27 +20,23 @@ export const TodoForm = () => {
     setTodo(e.target.value);
   }, []);
 
-  const onHandleSubmit = (e: React.SyntheticEvent) => {
+  const onHandleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    fetch('/api/test', {
+    await fetch('/api/test', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ val: todo }),
-    })
-      .then((res) => {
-        res.json();
-      })
-      .then(() => {
-        loadCurTodoData();
-      });
+    }).then(() => {
+      loadCurTodoData();
+    });
     setTodo('');
   };
 
-  const onClickDelete = (todoId: number, e: React.SyntheticEvent) => {
+  const onClickDelete = async (todoId: number, e: React.SyntheticEvent) => {
     e.preventDefault();
-    fetch('/api/test', {
+    await fetch('/api/test', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -48,13 +44,9 @@ export const TodoForm = () => {
       body: JSON.stringify({
         id: todoId,
       }),
-    })
-      .then((res) => {
-        res.json();
-      })
-      .then(() => {
-        loadCurTodoData();
-      });
+    }).then(() => {
+      loadCurTodoData();
+    });
   };
 
   useEffect(() => {
@@ -77,9 +69,8 @@ export const TodoForm = () => {
       {curTodo && (
         <List>
           {curTodo.map((t) => (
-            <TodoItem>
+            <TodoItem key={t.id}>
               <div
-                key={t.id}
                 style={{
                   marginLeft: 'auto',
                   marginRight: 'auto',
