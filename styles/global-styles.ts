@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import bg from '../public/images/wall.jpeg';
+// import bg from '../public/images/wall.jpeg';
 
 export const GlobalStyle = createGlobalStyle`
     html
@@ -10,7 +10,6 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 15px;
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
         Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-        background-image: url(${bg.src});
         background-size: cover;
         background-position: center;
         height: 100vh;

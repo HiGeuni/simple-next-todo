@@ -1,21 +1,12 @@
-import { DefaultTheme } from 'styled-components';
-
-export const theme: DefaultTheme = {
-  color: {
-    purple: '#8661de',
-    blue: '#00bac7',
-  },
-  boxShadow: {
-    normal: '0 3px 8px 0 rgb(0 0 0 / 10%)',
-    purple: '0 3px 8px 0 #d6c9ff',
-    blue: '0 3px 8px 0 #b3e2e6',
-  },
-  palette: {
-    primary: {
-      main: '#ff8e88',
-    },
-    secondary: {
-      main: '#ff0000',
-    },
-  },
+const color = {
+  aquaHaze: '#EFF4F4',
+  opal: '#ABC5C7',
+  firefly: '#142B2D',
+  cashmere: '#EAB6A5',
+  davyGrey: '#555C5B',
+  clay: '#B75F4A',
 };
+
+export type Color = typeof color;
+
+export default { color };

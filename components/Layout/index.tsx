@@ -1,4 +1,5 @@
-import { Header } from './Header';
+import { NavBar } from '../NavBar';
+import { StyledDiv } from './styles';
 
 interface IProps {
   children: React.ReactNode;
@@ -6,10 +7,10 @@ interface IProps {
 
 const Layout = ({ children }: IProps) => {
   return (
-    <>
-      <Header />
+    <StyledDiv>
+      <NavBar />
       {children}
-    </>
+    </StyledDiv>
   );
 };
 

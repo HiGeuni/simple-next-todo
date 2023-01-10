@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../styles/global-styles';
-import { theme } from '../styles/theme';
+import theme from '../styles/theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 import React from 'react';

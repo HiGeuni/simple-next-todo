@@ -1,10 +1,16 @@
+import { Button, ListItem } from '@mui/material';
 import styled from 'styled-components';
 
 export const Main = styled.main`
   display: flex;
   flex-direction: column;
   width: 100%;
-  & > * {
+  & > h1 {
+    color: ${({ theme }) => theme.color.opal};
+    margin-left: auto;
+    margin-right: auto;
+  }
+  & > form {
     margin-left: auto;
     margin-right: auto;
   }
@@ -21,4 +27,14 @@ export const Main = styled.main`
       background-color: lightgray;
     }
   }
+`;
+
+export const TodoItem = styled(ListItem)`
+  margin-top: 0px;
+  /* justify-content: center; */
+`;
+
+export const ColoredButton = styled(Button)`
+  color: ${({ theme }) => theme.color.opal};
+  /* justify-content: center; */
 `;

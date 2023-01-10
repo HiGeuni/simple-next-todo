@@ -1,14 +1,15 @@
-import { Input } from '@mui/material';
-import { Main } from './styles';
+import { Button, Icon, Input, List, ListItem } from '@mui/material';
+import { Main, TodoItem } from './styles';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { todoType } from 'types/TodoTypes';
+import { Remove } from '@mui/icons-material';
 
 export const TodoForm = () => {
   const [todo, setTodo] = useState<string>('');
   const [curTodo, setCurTodo] = useState<todoType[]>([]);
 
-  const loadCurTodoData = async () => {
-    await fetch('/api/test')
+  const loadCurTodoData = () => {
+    fetch('/api/test')
       .then((res) => res.json())
       .then((data) => {
         setCurTodo(data.message);
@@ -19,23 +20,41 @@ export const TodoForm = () => {
     setTodo(e.target.value);
   }, []);
 
-  const onHandleSubmit = async (e: React.SyntheticEvent) => {
+  const onHandleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const data = { val: todo };
-    await fetch('/api/test', {
+    fetch('/api/test', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ val: todo }),
     })
       .then((res) => {
         res.json();
       })
-      .then((data) => {
+      .then(() => {
         loadCurTodoData();
       });
     setTodo('');
+  };
+
+  const onClickDelete = (todoId: number, e: React.SyntheticEvent) => {
+    e.preventDefault();
+    fetch('/api/test', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: todoId,
+      }),
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then(() => {
+        loadCurTodoData();
+      });
   };
 
   useEffect(() => {
@@ -56,20 +75,29 @@ export const TodoForm = () => {
         <input className="submit-btn" type="submit" value="등록" />
       </form>
       {curTodo && (
-        <>
+        <List>
           {curTodo.map((t) => (
-            <div
-              key={t.id}
-              style={{
-                marginLeft: 'auto',
-                marginRight: 'auto',
-                marginTop: '20px',
-              }}
-            >
-              {t.content}
-            </div>
+            <TodoItem>
+              <div
+                key={t.id}
+                style={{
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                }}
+              >
+                {t.content}
+              </div>
+              <Button onClick={(e) => onClickDelete(t.id, e)}>
+                <Icon
+                  component={Remove}
+                  style={{
+                    color: 'skyblue',
+                  }}
+                />
+              </Button>
+            </TodoItem>
           ))}
-        </>
+        </List>
       )}
     </Main>
   );
