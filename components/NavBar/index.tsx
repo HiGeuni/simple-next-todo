@@ -15,7 +15,7 @@ export const NavBar = () => {
         <StyledLink href="/today">
           <Icon component={ChatBubble} />
         </StyledLink>
-        <StyledLink href="/week">
+        <StyledLink href="/calendar">
           <Icon component={Window} />
         </StyledLink>
       </NavArea>

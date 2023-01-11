@@ -1,11 +1,12 @@
 import Layout from '../components/Layout';
 import DetailLayout from 'components/DetailLayout';
+import { CalendarComponent } from 'components/Calendar';
 
 export default function Week() {
   return (
     <Layout>
       <DetailLayout>
-        <h1>This is Week Page</h1>
+        <CalendarComponent />
       </DetailLayout>
     </Layout>
   );

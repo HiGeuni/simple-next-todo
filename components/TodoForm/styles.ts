@@ -6,7 +6,7 @@ export const Main = styled.main`
   flex-direction: column;
   width: 100%;
   & > h1 {
-    color: ${({ theme }) => theme.color.opal};
+    color: #000;
     margin-left: auto;
     margin-right: auto;
   }
@@ -35,6 +35,6 @@ export const TodoItem = styled(ListItem)`
 `;
 
 export const ColoredButton = styled(Button)`
-  color: ${({ theme }) => theme.color.opal};
+  color: ${({ theme }) => theme.color.DeepSpaceSparkle};
   /* justify-content: center; */
 `;

@@ -1,10 +1,11 @@
 const color = {
-  aquaHaze: '#EFF4F4',
-  opal: '#ABC5C7',
-  firefly: '#142B2D',
-  cashmere: '#EAB6A5',
-  davyGrey: '#555C5B',
-  clay: '#B75F4A',
+  DeepSpaceSparkle: '#496d6c',
+  AzureishWhite: '#dfeaea',
+  FireOpal: '#e46345',
+  RomanSilver: '#829898',
+  BrownYellow: '#cf955d',
+  Tuscany: '#bc9b95',
+  CadetBlue: '#a6b7b9',
 };
 
 export type Color = typeof color;

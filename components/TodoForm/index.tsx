@@ -69,7 +69,12 @@ export const TodoForm = () => {
       {curTodo && (
         <List>
           {curTodo.map((t) => (
-            <TodoItem key={t.id}>
+            <TodoItem
+              key={t.id}
+              style={{
+                maxWidth: '1000px',
+              }}
+            >
               <div
                 style={{
                   marginLeft: 'auto',
