@@ -129,4 +129,5 @@ export const CustomContainer = styled(Container)`
     display: flex;
     margin-left: 1px;
   }
+  padding-left: 0;
 `;

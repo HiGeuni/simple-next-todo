@@ -3,7 +3,7 @@ import { StyledDiv, NavArea, StyledLink } from './style';
 import { Icon } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChatBubble from '@mui/icons-material/ChatBubble';
-import { Home, Window, Logout } from '@mui/icons-material';
+import { Home, Window, Logout, Map } from '@mui/icons-material';
 
 export const NavBar = () => {
   return (
@@ -17,6 +17,9 @@ export const NavBar = () => {
         </StyledLink>
         <StyledLink href="/calendar">
           <Icon component={Window} />
+        </StyledLink>
+        <StyledLink href="/map">
+          <Icon component={Map} />
         </StyledLink>
       </NavArea>
       <StyledLink href="/week">
