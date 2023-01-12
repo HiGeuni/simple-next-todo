@@ -4,23 +4,30 @@ import { Icon } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChatBubble from '@mui/icons-material/ChatBubble';
 import { Home, Window, Logout, Map } from '@mui/icons-material';
+import { useRouter } from 'next/router';
+
+const menuData = [
+  { id: 'Home', icon: Home, path: '/' },
+  { id: 'todo', icon: ChatBubble, path: '/today' },
+  { id: 'calendar', icon: Window, path: '/calendar' },
+  { id: 'map', icon: Map, path: '/map' },
+];
 
 export const NavBar = () => {
+  const router = useRouter();
   return (
     <StyledDiv>
       <NavArea>
-        <StyledLink href="/">
-          <Icon component={Home} />
-        </StyledLink>
-        <StyledLink href="/today">
-          <Icon component={ChatBubble} />
-        </StyledLink>
-        <StyledLink href="/calendar">
-          <Icon component={Window} />
-        </StyledLink>
-        <StyledLink href="/map">
-          <Icon component={Map} />
-        </StyledLink>
+        {menuData.map((obj) => (
+          <StyledLink href={obj.path}>
+            <Icon
+              sx={{
+                color: router.pathname === obj.path ? 'white' : '#a6b7b9',
+              }}
+              component={obj.icon}
+            />
+          </StyledLink>
+        ))}
       </NavArea>
       <StyledLink href="/week">
         <Icon component={Logout} />
