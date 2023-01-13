@@ -19,7 +19,7 @@ export const NavBar = () => {
     <StyledDiv>
       <NavArea>
         {menuData.map((obj) => (
-          <StyledLink href={obj.path}>
+          <StyledLink href={obj.path} key={obj.id}>
             <Icon
               sx={{
                 color: router.pathname === obj.path ? 'white' : '#a6b7b9',

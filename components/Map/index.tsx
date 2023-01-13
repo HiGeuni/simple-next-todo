@@ -1,10 +1,11 @@
+import { LegendToggleOutlined } from '@mui/icons-material';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 
-const center = {
-  lat: 37.63436175338306,
-  lng: 127.07706751281931,
-};
+interface latlng {
+  lat: number;
+  lng: number;
+}
 
 const MapComponent = () => {
   const { isLoaded } = useJsApiLoader({
@@ -12,9 +13,26 @@ const MapComponent = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY,
   });
   const [map, setMap] = useState(null);
+  const [loc, setLoc] = useState<latlng>({ lat: 1, lng: 1 });
 
   const onLoad = useCallback((map) => {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        var lat = position.coords.latitude;
+        var lon = position.coords.longitude;
+        setLoc({
+          lat: lat,
+          lng: lon,
+        });
+      });
+    } else {
+      console.log('Cannot Using Geolocation API');
+      setLoc({
+        lat: 37.63436175338306,
+        lng: 127.07706751281931,
+      });
+    }
+    const bounds = new window.google.maps.LatLngBounds(loc);
     map.fitBounds(bounds);
     map.zoom = 5;
     setMap(map);
@@ -29,7 +47,7 @@ const MapComponent = () => {
         // height: '70%',
         aspectRatio: 1,
       }}
-      center={center}
+      center={loc}
       zoom={5}
       onLoad={onLoad}
       onUnmount={onUnmount}
