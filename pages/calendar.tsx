@@ -5,8 +5,9 @@ import { CalendarComponent } from 'components/Calendar';
 export default function Week() {
   return (
     <Layout>
+      <CalendarComponent />
       <DetailLayout>
-        <CalendarComponent />
+        <div>Hi</div>
       </DetailLayout>
     </Layout>
   );

@@ -1,15 +1,14 @@
 import { Container } from '@mui/material';
 import styled from 'styled-components';
 
-export const CustomContainer = styled(Container)`
+export const CustomContainer = styled('div')`
   .react-calendar {
-    width: 400px;
-    max-width: 100%;
+    width: 300px;
     height: 350px;
     background-color: ${({ theme }) => theme.color.AzureishWhite};
     color: #222;
     border-radius: 8px;
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); */
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.125em;
   }
@@ -22,14 +21,14 @@ export const CustomContainer = styled(Container)`
     color: #000;
     min-width: 44px;
     background: none;
-    font-size: 16px;
+    font-size: 14px;
     margin-top: 8px;
     border: none;
   }
   .react-calendar__navigation button:enabled:hover,
   .react-calendar__navigation button:enabled:focus {
     background-color: #f8f8fa;
-    font-size: 16px;
+    font-size: 14px;
   }
   .react-calendar__navigation button[disabled] {
     background-color: #f0f0f0;
@@ -129,5 +128,9 @@ export const CustomContainer = styled(Container)`
     display: flex;
     margin-left: 1px;
   }
-  padding-left: 0;
+
+  min-width: 320px;
+  padding-left: 10px;
+  padding-right: 0;
+  padding-top: 24px;
 `;
