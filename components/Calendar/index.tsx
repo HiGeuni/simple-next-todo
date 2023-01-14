@@ -10,15 +10,29 @@ import Calendar, { CalendarTileProperties, Detail } from 'react-calendar';
 import moment from 'moment';
 import { CustomContainer } from './styles';
 
+type t = {
+  content: String;
+  createdAt: Date;
+  id: Number;
+  isComplete: Boolean;
+};
+
 export const CalendarComponent = () => {
   const [value, setValue] = useState(new Date());
-  const [mark, setMark] = useState<string[]>([]);
+  const [mark, setMark] = useState<t[]>([]);
+
+  const loadCurTodoData = async () => {
+    await fetch('/api/test')
+      .then((res) => res.json())
+      .then((data) => {
+        const d = data.message;
+        console.log(d);
+        setMark(d);
+      });
+  };
+
   useEffect(() => {
-    let tmp = [];
-    for (let i = 0; i < 10; ++i) {
-      tmp.push(moment(value).format('YYYY-MM-DD'));
-    }
-    setMark(tmp);
+    loadCurTodoData();
   }, []);
 
   return (
@@ -32,7 +46,11 @@ export const CalendarComponent = () => {
           formatDay={(locale, date) => moment(date).format('DD')}
           selectRange={false}
           tileContent={({ date, view }: CalendarTileProperties) => {
-            return mark.find((x) => x === moment(date).format('YYYY-MM-DD')) ? (
+            return mark.find(
+              (x) =>
+                moment(x.createdAt).format('YYYY-MM-DD') ===
+                moment(date).format('YYYY-MM-DD'),
+            ) ? (
               <div>
                 <div className="dot"></div>
               </div>

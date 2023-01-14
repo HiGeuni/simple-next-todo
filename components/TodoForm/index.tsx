@@ -4,7 +4,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { todoType } from 'types/TodoTypes';
 import { Remove } from '@mui/icons-material';
 
-export const TodoForm = () => {
+const TodoForm = () => {
   const [todo, setTodo] = useState<string>('');
   const [curTodo, setCurTodo] = useState<todoType[]>([]);
 
@@ -48,10 +48,6 @@ export const TodoForm = () => {
       loadCurTodoData();
     });
   };
-
-  useEffect(() => {
-    loadCurTodoData();
-  }, []);
 
   return (
     <Main>
@@ -98,3 +94,14 @@ export const TodoForm = () => {
     </Main>
   );
 };
+
+// export async function getServerSidePorps() {
+//   const res = await fetch('/api/test');
+//   const data = await res.json();
+//   const curTodo = data.message;
+//   console.log(curTodo);
+
+//   return { props: { curTodo } };
+// }
+
+export default TodoForm;
