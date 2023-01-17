@@ -5,6 +5,7 @@ export const Main = styled.main`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
   & > h1 {
     color: #000;
     margin-left: auto;

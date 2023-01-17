@@ -49,6 +49,10 @@ const TodoForm = () => {
     });
   };
 
+  useEffect(() => {
+    loadCurTodoData();
+  }, []);
+
   return (
     <Main>
       <h1>Todo Today</h1>
@@ -62,35 +66,42 @@ const TodoForm = () => {
         />
         <input className="submit-btn" type="submit" value="등록" />
       </form>
-      {curTodo && (
-        <List>
-          {curTodo.map((t) => (
-            <TodoItem
-              key={t.id}
-              style={{
-                maxWidth: '1000px',
-              }}
-            >
-              <div
+      <div
+        style={{
+          height: '100%',
+          overflow: 'scroll',
+        }}
+      >
+        {curTodo && (
+          <List>
+            {curTodo.map((t) => (
+              <TodoItem
+                key={t.id}
                 style={{
-                  marginLeft: 'auto',
-                  marginRight: 'auto',
+                  maxWidth: '1000px',
                 }}
               >
-                {t.content}
-              </div>
-              <Button onClick={(e) => onClickDelete(t.id, e)}>
-                <Icon
-                  component={Remove}
+                <div
                   style={{
-                    color: 'skyblue',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
                   }}
-                />
-              </Button>
-            </TodoItem>
-          ))}
-        </List>
-      )}
+                >
+                  {t.content}
+                </div>
+                <Button onClick={(e) => onClickDelete(t.id, e)}>
+                  <Icon
+                    component={Remove}
+                    style={{
+                      color: 'skyblue',
+                    }}
+                  />
+                </Button>
+              </TodoItem>
+            ))}
+          </List>
+        )}
+      </div>
     </Main>
   );
 };
