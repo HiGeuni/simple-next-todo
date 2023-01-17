@@ -3,6 +3,7 @@ import { Main, TodoItem } from './styles';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import { todoType } from 'types/TodoTypes';
 import { Remove } from '@mui/icons-material';
+import Checkbox from '../CheckBox';
 
 const TodoForm = () => {
   const [todo, setTodo] = useState<string>('');
@@ -87,7 +88,9 @@ const TodoForm = () => {
                     marginRight: 'auto',
                   }}
                 >
-                  {t.content}
+                  <Checkbox label={t.content} />
+                  {/* <input type="checkbox" value={t.id} />
+                  {t.content} */}
                 </div>
                 <Button onClick={(e) => onClickDelete(t.id, e)}>
                   <Icon
