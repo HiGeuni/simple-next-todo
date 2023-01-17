@@ -63,6 +63,14 @@ export const CalendarComponent = () => {
         <div className="text-gray-500 mt-4">
           Selected Date : {moment(value).format('YYYY년 MM월 DD일')}
         </div>
+        {mark &&
+          mark
+            .filter(
+              (x) =>
+                moment(x.createdAt).format('YYYY-MM-DD') ===
+                moment(value).format('YYYY-MM-DD'),
+            )
+            .map((x) => <div>{x.content}</div>)}
       </div>
     </CustomContainer>
   );
