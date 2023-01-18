@@ -48,6 +48,7 @@ const TodoForm = () => {
       setCurTodo(curTodo.filter((cur) => cur.id !== todoId));
     });
   };
+
   useEffect(() => {
     loadCurTodoData();
   }, []);
@@ -86,7 +87,7 @@ const TodoForm = () => {
                     marginRight: 'auto',
                   }}
                 >
-                  <Checkbox label={t.content} />
+                  <Checkbox id={t.id} todo={curTodo} setTodo={setCurTodo} />
                   {/* <input type="checkbox" value={t.id} />
                   {t.content} */}
                 </div>

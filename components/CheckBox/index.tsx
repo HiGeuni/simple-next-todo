@@ -1,24 +1,57 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ActiveDiv, CheckBoxWraper } from './styles';
+import { ITodoType } from 'types/TodoTypes';
+import moment from 'moment';
 
 interface IProps {
-  label: string;
+  id: number;
+  todo: ITodoType[];
+  setTodo: (e: ITodoType[]) => void;
 }
 
-const Checkbox = ({ label }: IProps) => {
-  const [isCheck, setIsCheck] = useState<boolean>(false);
+const Content = (t: ITodoType) => {
+  return (
+    <div>
+      <div>{t.content}</div>
+      <div>{moment(t.createdAt).format('YYYY-MM-DD')}</div>
+    </div>
+  );
+};
+
+const Checkbox = ({ id, todo, setTodo }: IProps) => {
+  const [data, setData] = useState(todo.find((x) => x.id === id)!);
+  const [isCheck, setIsCheck] = useState<boolean>(data.isComplete);
+
   return (
     <CheckBoxWraper>
       <input
         className={isCheck ? 'checked' : 'no'}
         type="checkbox"
+        defaultChecked={isCheck}
         onChange={() => {
+          fetch('/api/test', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: id,
+              content: data.content,
+              isComplete: !isCheck,
+            }),
+          });
           setIsCheck(!isCheck);
         }}
         id="checkbox"
       />
       <label htmlFor="checkbox"></label>
-      {isCheck ? <ActiveDiv>{label}</ActiveDiv> : <div>{label}</div>}
+      {isCheck ? (
+        <ActiveDiv>
+          <Content {...data} />
+        </ActiveDiv>
+      ) : (
+        <Content {...data} />
+      )}
     </CheckBoxWraper>
   );
 };

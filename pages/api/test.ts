@@ -23,15 +23,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   // todo
   if (req.method === 'PUT') {
-    const val = req.body.val;
     const id = req.body.id;
-    let todo: ITodoType | undefined = data.today.find(
-      (x) => x.id.toString() === id.toString(),
-    );
+    const content = req.body.content;
+    const isComplete = req.body.isComplete;
+    const todo: ITodoType = data.today.find((x) => x.id === id)!;
     if (!todo) return res.status(404).send({ message: 'Not Found' });
-    todo.content = val;
-    data.today.push(todo);
-    await writeJsonFile('data.json', data);
+    todo.isComplete = isComplete;
+    todo.content = content;
+    console.log('Todo: ', todo);
+    const datas: ITodoType[] = data.today.map((x) =>
+      x.id === id
+        ? { ...x, id: id, isComplete: isComplete, content: content }
+        : x,
+    );
+    console.log(datas);
+    await writeJsonFile('data.json', { today: datas });
     return res.status(200).json({ message: 'Updated' });
   }
 
