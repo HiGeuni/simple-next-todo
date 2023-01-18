@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import data from 'data.json';
-import { todoType } from 'types/TodoTypes';
+import { ITodoType } from 'types/TodoTypes';
 import { writeJsonFile, writeJsonFileSync } from 'write-json-file';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === 'POST') {
     const val = req.body.val;
-    const newData: todoType = {
+    const newData: ITodoType = {
       id: data.today.length ? Math.max(...data.today.map((x) => x.id)) + 1 : 1,
       content: val,
       createdAt: new Date().toISOString(),
@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'PUT') {
     const val = req.body.val;
     const id = req.body.id;
-    let todo: todoType | undefined = data.today.find(
+    let todo: ITodoType | undefined = data.today.find(
       (x) => x.id.toString() === id.toString(),
     );
     if (!todo) return res.status(404).send({ message: 'Not Found' });
@@ -37,11 +37,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === 'DELETE') {
     const id = req.body.id;
-    const todo: todoType[] | undefined = data.today.filter(
+    const todo: ITodoType[] | undefined = data.today.filter(
       (x) => x.id.toString() !== id.toString(),
     );
     if (!todo) return res.status(404).send({ message: 'Not Found' });
-    await writeJsonFile('data.json', { today: todo });
+    await writeJsonFile('data.json', { today: todo }).then(() =>
+      console.log('complete'),
+    );
+    console.log('return');
     return res.status(200).json({ message: 'Deleted' });
   }
   return res.status(500);

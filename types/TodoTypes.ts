@@ -1,4 +1,4 @@
-export interface todoType {
+export interface ITodoType {
   id: number;
   content: string;
   isComplete: boolean;

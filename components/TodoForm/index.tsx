@@ -1,13 +1,13 @@
 import { Button, Icon, Input, List, ListItem } from '@mui/material';
 import { Main, TodoItem } from './styles';
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { todoType } from 'types/TodoTypes';
+import { ITodoType } from 'types/TodoTypes';
 import { Remove } from '@mui/icons-material';
 import Checkbox from '../CheckBox';
 
 const TodoForm = () => {
   const [todo, setTodo] = useState<string>('');
-  const [curTodo, setCurTodo] = useState<todoType[]>([]);
+  const [curTodo, setCurTodo] = useState<ITodoType[]>([]);
 
   const loadCurTodoData = () => {
     fetch('/api/test')
@@ -36,8 +36,7 @@ const TodoForm = () => {
   };
 
   const onClickDelete = async (todoId: number, e: React.SyntheticEvent) => {
-    e.preventDefault();
-    await fetch('/api/test', {
+    fetch('/api/test', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -46,10 +45,9 @@ const TodoForm = () => {
         id: todoId,
       }),
     }).then(() => {
-      loadCurTodoData();
+      setCurTodo(curTodo.filter((cur) => cur.id !== todoId));
     });
   };
-
   useEffect(() => {
     loadCurTodoData();
   }, []);
