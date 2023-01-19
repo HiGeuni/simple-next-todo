@@ -1,31 +1,15 @@
 import Layout from '../components/Layout';
 import DetailLayout from 'components/DetailLayout';
 import { CalendarComponent } from 'components/Calendar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import moment from 'moment';
 import { ITodoType } from 'types/TodoTypes';
 import { TodoDetail } from 'components/TodoDetail';
+import { GetStaticProps } from 'next';
 
-export default function Week() {
+export default function Week({ todos }: any) {
   const [value, setValue] = useState(new Date());
-  const [todos, setTodos] = useState<ITodoType[]>([]);
-
-  const loadCurTodoData = async () => {
-    await fetch('/api/test')
-      .then((res) => res.json())
-      .then((data) => {
-        // const d = data.message.filter(
-        //   (d2: ITodo) =>
-        //     moment(d2.createdAt).format('YYYY-MM-DD') ===
-        //     moment(value).format('YYYY-MM-DD'),
-        // );
-        setTodos(data.message);
-      });
-  };
-
-  useEffect(() => {
-    loadCurTodoData();
-  }, [value]);
+  const [todo] = useState<ITodoType[]>(todos);
 
   return (
     <Layout>
@@ -33,7 +17,7 @@ export default function Week() {
       <DetailLayout>
         <TodoDetail
           value={moment(value).format('YYYY-MM-DD')}
-          todos={todos.filter(
+          todos={todo.filter(
             (d2: ITodoType) =>
               moment(d2.createdAt).format('YYYY-MM-DD') ===
               moment(value).format('YYYY-MM-DD'),
@@ -43,3 +27,14 @@ export default function Week() {
     </Layout>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch('http://localhost:3000/api/test');
+  const todos = await res.json();
+  console.log('SSR!');
+  return {
+    props: {
+      todos: todos.message,
+    },
+  };
+};

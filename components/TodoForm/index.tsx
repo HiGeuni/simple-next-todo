@@ -1,13 +1,13 @@
 import { Button, Icon, Input, List, ListItem } from '@mui/material';
 import { Main, TodoItem } from './styles';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { ITodoType } from 'types/TodoTypes';
 import { Remove } from '@mui/icons-material';
 import Checkbox from '../CheckBox';
 
-const TodoForm = () => {
+const TodoForm = ({ todos }: any) => {
   const [todo, setTodo] = useState<string>('');
-  const [curTodo, setCurTodo] = useState<ITodoType[]>([]);
+  const [curTodo, setCurTodo] = useState<ITodoType[]>(todos);
 
   const loadCurTodoData = () => {
     fetch('/api/test')
@@ -48,10 +48,6 @@ const TodoForm = () => {
       setCurTodo(curTodo.filter((cur) => cur.id !== todoId));
     });
   };
-
-  useEffect(() => {
-    loadCurTodoData();
-  }, []);
 
   return (
     <Main>

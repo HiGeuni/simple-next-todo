@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ActiveDiv, CheckBoxWraper } from './styles';
 import { ITodoType } from 'types/TodoTypes';
 import moment from 'moment';

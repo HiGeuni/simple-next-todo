@@ -1,10 +1,3 @@
-import {
-  ChangeEvent,
-  useCallback,
-  useState,
-  MouseEvent,
-  useEffect,
-} from 'react';
 import Calendar, { CalendarTileProperties, Detail } from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
@@ -18,13 +11,6 @@ interface IProps {
 }
 
 export const CalendarComponent = ({ value, setValue, todos }: IProps) => {
-  // const [value, setValue] = useState(new Date());
-  // const [mark, setMark] = useState<ITodo[]>([]);
-
-  // useEffect(() => {
-  //   loadCurTodoData();
-  // }, []);
-
   return (
     <CustomContainer>
       <h1>This is Calendar</h1>
