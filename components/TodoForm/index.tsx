@@ -2,7 +2,7 @@ import { Button, Icon, Input, List, ListItem } from '@mui/material';
 import { Main, TodoItem } from './styles';
 import { ChangeEvent, useCallback, useState } from 'react';
 import { ITodoType } from 'types/TodoTypes';
-import { Remove } from '@mui/icons-material';
+import { Clear, Edit, Remove } from '@mui/icons-material';
 import Checkbox from '../CheckBox';
 
 const TodoForm = ({ todos }: any) => {
@@ -87,14 +87,14 @@ const TodoForm = ({ todos }: any) => {
                   {/* <input type="checkbox" value={t.id} />
                   {t.content} */}
                 </div>
-                <Button onClick={(e) => onClickDelete(t.id, e)}>
-                  <Icon
-                    component={Remove}
-                    style={{
-                      color: 'skyblue',
-                    }}
-                  />
-                </Button>
+                {/* todo
+                    특정 일정에 대한 모달만 뜨도록 하는 법
+                     */}
+                <Edit />
+                <Clear
+                  style={{ color: 'black' }}
+                  onClick={(e) => onClickDelete(t.id, e)}
+                />
               </TodoItem>
             ))}
           </List>

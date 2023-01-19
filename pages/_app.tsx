@@ -7,6 +7,8 @@ import theme from '../styles/theme';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Hydrate } from 'react-query/hydration';
 import React from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -22,6 +24,7 @@ const App = (props: AppProps) => {
           <GlobalStyle />
           <CssBaseline />
           <Component {...pageProps} />
+          <ToastContainer />
         </ThemeProvider>
       </Hydrate>
     </QueryClientProvider>
