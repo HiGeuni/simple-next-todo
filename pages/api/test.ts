@@ -30,13 +30,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     if (!todo) return res.status(404).send({ message: 'Not Found' });
     todo.isComplete = isComplete;
     todo.content = content;
-    console.log('Todo: ', todo);
     const datas: ITodoType[] = data.today.map((x) =>
       x.id === id
         ? { ...x, id: id, isComplete: isComplete, content: content }
         : x,
     );
-    console.log(datas);
     await writeJsonFile('data.json', { today: datas });
     return res.status(200).json({ message: 'Updated' });
   }

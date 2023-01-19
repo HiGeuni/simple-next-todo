@@ -19,33 +19,39 @@ const Marker = (props: ILocation) => (
 );
 
 const MapComponent = () => {
-  const [loc, setLoc] = useState<ILocation>({ lat: 0, lng: 0 });
+  // 서울시청 좌표
+  const [loc, setLoc] = useState<ILocation>({
+    lat: 37.5666805,
+    lng: 126.9784147,
+  });
   const [markers, setMarkers] = useState<ILocation[]>([]);
 
-  const onClickMap = useCallback((e: googleMapReact.ClickEventValue) => {
-    const l: ILocation = {
-      lat: e.lat,
-      lng: e.lng,
-    };
-    setMarkers((prev) => [l]);
-  }, []);
-
-  // const onClickMap = useCallback((e) => {
-  //   const l: ILocation = {
-  //     lat: e.lat,
-  //     lng: e.lng,
-  //   };
-  //   setMarkers(l);
-  // }, []);
+  const onClickMap = useCallback(
+    (e: googleMapReact.ClickEventValue) => {
+      const l: ILocation = {
+        lat: e.lat,
+        lng: e.lng,
+      };
+      setMarkers((prev) => [l]);
+    },
+    [setMarkers],
+  );
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setLoc({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      });
-    });
-  }, []);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLoc({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (e) => {
+          console.log(e);
+        },
+      );
+    }
+  }, [setLoc]);
 
   return (
     <div style={{ height: '90%' }}>
@@ -55,10 +61,9 @@ const MapComponent = () => {
         onClick={onClickMap}
         center={loc}
       >
-        {markers && <Marker {...markers[0]} />}
+        {markers.length !== 0 && <Marker {...markers[0]} />}
       </GoogleMapReact>
     </div>
   );
 };
-
 export default MapComponent;
