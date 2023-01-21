@@ -9,6 +9,7 @@ import { Hydrate } from 'react-query/hydration';
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { SessionProvider } from 'next-auth/react';
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -21,10 +22,12 @@ const App = (props: AppProps) => {
     <QueryClientProvider client={queryClientRef.current}>
       <Hydrate state={pageProps.dehydratedState}>
         <ThemeProvider theme={theme}>
-          <GlobalStyle />
-          <CssBaseline />
-          <Component {...pageProps} />
-          <ToastContainer />
+          <SessionProvider session={pageProps.session}>
+            <GlobalStyle />
+            <CssBaseline />
+            <Component {...pageProps} />
+            <ToastContainer />
+          </SessionProvider>
         </ThemeProvider>
       </Hydrate>
     </QueryClientProvider>

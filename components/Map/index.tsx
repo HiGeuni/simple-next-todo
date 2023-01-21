@@ -1,7 +1,6 @@
 import { useCallback, useState, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import dotenv from 'dotenv';
-import { Icon } from '@mui/material';
 import { LocationOn } from '@mui/icons-material';
 import googleMapReact from 'google-map-react';
 
@@ -14,7 +13,7 @@ interface ILocation {
 
 const Marker = (props: ILocation) => (
   <div className={'marker'}>
-    <Icon component={LocationOn} className={'pinIcon'} />
+    <LocationOn />
   </div>
 );
 

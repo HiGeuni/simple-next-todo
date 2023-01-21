@@ -3,7 +3,7 @@ import { StyledDiv, NavArea, StyledLink } from './style';
 import { Icon } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChatBubble from '@mui/icons-material/ChatBubble';
-import { Home, Window, Logout, Map } from '@mui/icons-material';
+import { Home, Window, Logout, Map, Person, Login } from '@mui/icons-material';
 import { useRouter } from 'next/router';
 
 const menuData = [
@@ -29,9 +29,15 @@ export const NavBar = () => {
           </StyledLink>
         ))}
       </NavArea>
-      <StyledLink href="/week">
-        <Icon component={Logout} />
-      </StyledLink>
+      <div>
+        <StyledLink href="/login">
+          <Icon component={Login} />
+        </StyledLink>
+        <div style={{ height: '10px' }}></div>
+        <StyledLink href="/week">
+          <Icon component={Logout} />
+        </StyledLink>
+      </div>
     </StyledDiv>
   );
 };
